@@ -1,12 +1,12 @@
-# 📊 Tableau Project: Chicago Crime Data Visualization (2012–2017)
+# Tableau Project: Chicago Crime Data Visualization (2012–2017)
 
-## 🔎 Overview
+## Overview
 This project was created in Tableau to explore and visualize crimes in Chicago from 2012-2017.  
 It includes multiple dashboards/sheetsand is supported by an Excel dataset from the City of Chicago Data Portal.  
 
 ---
 
-## 📂 Project Files
+## Project Files
 All source files are stored in Google Drive.  
 🔗 [View the Project Files on Google Drive](https://drive.google.com/drive/folders/1FFwbjLaAGB9MR2AgOGgsgelycKNhHMJv?usp=sharing)
 
