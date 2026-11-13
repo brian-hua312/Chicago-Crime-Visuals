@@ -169,3 +169,14 @@ Using a separate validation worksheet with Year(Date) filtered to 2012–2016, t
 | Missing latitude, missing longitude, or coordinates outside valid latitude/longitude ranges | **25,756** |
 
 The matching counts indicate that the broader invalid-coordinate test did **not** find additional records beyond the 25,756 missing-longitude records in the selected period. This test does not establish that every remaining coordinate is correctly geocoded or inside Chicago. The published map explicitly excludes null longitude values. Relative to the user-confirmed 2012–2016 total of 1,445,294, this exclusion represents approximately **1.78%** of incidents. The remaining **1,419,538** records are not excluded by the null-longitude condition, but this figure alone does not establish the number of marks represented in the heatmap.
+
+## Tableau Public validation: geographic coordinate exclusions (user-confirmed)
+
+In a separate Tableau Public validation worksheet with Year(Date) filtered to 2012–2016, the user confirmed:
+
+- `SUM(IF ISNULL([Longitude]) THEN 1 ELSE 0 END)` = **25,756**.
+- The broader check for null Latitude, null Longitude, latitude outside -90 to 90, or longitude outside -180 to 180 also returned **25,756**.
+
+The matching totals mean that there are **no additional records flagged by the broader test beyond the 25,756 records missing longitude**. This does not independently prove those records also have missing latitude, nor does it exclude other geocoding errors within valid coordinate ranges.
+
+Relative to the user-confirmed 2012–2016 incident total of 1,445,294, these 25,756 records represent approximately **1.78%** of incident records. The remaining **1,419,538** are not flagged by these two checks, although their coordinates have not been independently geocoded or quality-assessed. The map's explicit exclusion of null Longitude is consistent with this result.
