@@ -38,6 +38,17 @@ The arithmetic check establishes internal consistency of **displayed counts**. I
 - The existing published monthly chart displays a reference line labeled approximately **24,200**. Revisit and align that reference line with the independently reproduced average, if it is intended to represent the mean of the same 60 months.
 - This check validates the count/mean within Tableau Public, but does not independently verify source extract completeness, date extrema, or null-date totals.
 
+## Tableau Public validation: police district codes (user-confirmed)
+
+Using the 2012–2016 year filter in a separate Tableau Public validation worksheet:
+
+- The previously displayed leading district totals were confirmed by the user (District 11: 102,096; District 8: 95,575; District 6: 86,169).
+- The user found **1** incident with a null District.
+- The user found **26** incidents assigned to District 31.
+- These two groups contain **27** records in total. This is not yet an independently established total count of every record outside the selected 22 district codes.
+- Preserve these records in the dataset; document any exclusions from the operational-district comparison. Districts 24 and 25 must remain included in the selected 22.
+- Remaining check: determine whether any other district codes (including historical codes 13, 21, and 23) have incident counts within this date window. Verify that the 22 selected district counts reconcile with the district-filtered total.
+
 ## Checks still required against the embedded extract
 
 1. Independently query minimum/maximum Date, records with missing Date, and counts by Year(Date). Confirm the completeness of 2012–2016 before making full-year comparisons.
