@@ -115,9 +115,9 @@ The workbook's source connection was originally named for a 2012–2017 dataset.
 
 ## Tableau Workbook
 
-The interactive dashboards and worksheets are available through the links above.
+The interactive dashboards and worksheets are available through the links above. To open the complete project in Tableau, download the [packaged Tableau workbook (`Chicago_Crime_Analytics_Final.twbx`)](Chicago_Crime_Analytics_Final.twbx). It contains the final project worksheets and dashboards, along with the embedded data extract.
 
-**The packaged Tableau workbook (`.twbx`) has not yet been uploaded to this repository.** The original workbook includes an embedded data extract. The repository is configured to track large `.twbx` files using Git LFS when the workbook is added.
+The workbook is stored using Git LFS (approximately 62.2 MiB). If GitHub displays a file preview rather than opening it, use the download option and open the `.twbx` in Tableau.
 
 ## Findings
 
