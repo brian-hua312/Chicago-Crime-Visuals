@@ -149,7 +149,5 @@ The full calculations, filter checks, and remaining caveats are documented in th
 
 - [Dashboard screenshots](images/)
 - [Individual worksheet screenshots](images/worksheets/)
-- [Image export notes](docs/EXPORT_IMAGES.md)
-- [Analysis review checklist](docs/ANALYSIS_NOTES.md)
 
 SQL scripts and independent query-performance benchmarks are not included in this version of the project.
