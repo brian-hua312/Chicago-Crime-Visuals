@@ -116,3 +116,17 @@ In a separate Tableau Public validation worksheet, with Year(Date) filtered to 2
 | **Total** | **1,445,294** | **100%** |
 
 This independently reproduces the published counts within Tableau Public, using the workbook's extract and calculated arrest-status field. It is not a separate query against the raw source data. The Arrest field indicates whether an arrest was recorded, not a conviction or final case disposition.
+
+## Tableau Public validation: District 11 crime distribution (user-confirmed)
+
+In a separate Tableau Public validation worksheet, the user applied the 2012–2016 year filter, limited District to **11**, grouped by the workbook's `Crime Type - Top 10 + Other` field, and used Percent of Total across categories. The user confirmed the percentages matched the published District 11 bubble chart:
+
+| Category | Share of District 11 incidents |
+| --- | ---: |
+| Narcotics | 28.00% |
+| Battery | 18.71% |
+| Theft | 11.18% |
+| Criminal Damage | 7.82% |
+| Assault | 5.91% |
+
+This is a within-Tableau reproduction using the workbook's existing grouping and filters. The category share calculation is confirmed for these five categories; the full grouping and source-level counts have not been separately reconciled through the Hyper API.
