@@ -30,6 +30,14 @@ This audit inspects the Tableau workbook's XML definitions and independently rec
 
 The arithmetic check establishes internal consistency of **displayed counts**. It does not confirm that the extract's source records independently produce those values.
 
+## Tableau Public validation: monthly trend (user-confirmed)
+
+- Applied the Year(Date) filter to 2012–2016 in a separate validation sheet.
+- Reproduced a total of **1,445,294** reported incident records across the filtered period.
+- Validated an average of **24,088.2333333333** incidents across 60 monthly observations (**24,088.23** when rounded).
+- The existing published monthly chart displays a reference line labeled approximately **24,200**. Revisit and align that reference line with the independently reproduced average, if it is intended to represent the mean of the same 60 months.
+- This check validates the count/mean within Tableau Public, but does not independently verify source extract completeness, date extrema, or null-date totals.
+
 ## Checks still required against the embedded extract
 
 1. Independently query minimum/maximum Date, records with missing Date, and counts by Year(Date). Confirm the completeness of 2012–2016 before making full-year comparisons.
