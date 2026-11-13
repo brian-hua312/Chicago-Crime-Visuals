@@ -130,3 +130,15 @@ In a separate Tableau Public validation worksheet, the user applied the 2012–2
 | Assault | 5.91% |
 
 This is a within-Tableau reproduction using the workbook's existing grouping and filters. The category share calculation is confirmed for these five categories; the full grouping and source-level counts have not been separately reconciled through the Hyper API.
+
+## Tableau Public validation: annual category counts (user-confirmed)
+
+A separate Tableau Public worksheet was filtered to 2012–2016 and grouped by `Primary Type` and discrete `YEAR(Date)`. The user confirmed that the six displayed annual incident counts match the previously published heatmap:
+
+| Crime category | 2012 | 2016 | Change |
+| --- | ---: | ---: | ---: |
+| Theft | 75,450 | 61,163 | -14,287 (-18.94%) |
+| Narcotics | 35,486 | 12,413 | -23,073 (-65.02%) |
+| Battery | 59,126 | 50,239 | -8,887 (-15.03%) |
+
+This is a Tableau-extract-level consistency check using a separate worksheet. The completeness of 2012–2016, missing dates, and external raw-data reconciliation remain separate questions.
