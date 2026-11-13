@@ -14,7 +14,7 @@ I used Tableau to explore reported crime incidents in Chicago, focusing on 2012 
 | --- | --- |
 | **01: Crime Overview** | Reported crime categories by year, monthly incident trends, and whether an arrest was recorded |
 | **02: Geographic Patterns** | Geographic incident locations, police district comparisons, and reported location types. [View interactively on Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/02GeographicPatterns) |
-| **03: District-Level Patterns** | Crime categories within District 11 and weekly incident trends for Districts 8 and 11 |
+| **03: District-Level Patterns** | Crime categories within District 11 and weekly incident trends for Districts 8 and 11. [View interactively on Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/03District-LevelPatterns) |
 
 **Viewing note:** The location-type treemap on Dashboard 02 has crowded labels in smaller tiles. The dedicated worksheet **Chicago Crime by Location: Top 15 + Other (2012–2016)** provides a larger view. This is a presentation limitation, not a change in the underlying records.
 
