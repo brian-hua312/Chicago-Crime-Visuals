@@ -78,3 +78,25 @@ With the 2012–2016 year filter and no district exclusions in the validation wo
 | **Combined excluded groups** | **28** |
 
 These 28 records represent about **0.00194%** of the user-confirmed citywide total of 1,445,294. They are excluded from the comparison of 22 selected districts but should not be deleted from the dataset. Districts 24 and 25 remain included. This reconciliation assumes no other nonstandard district values exist; a complete distinct-values review would close that remaining question.
+
+## Tableau Public validation: Top 15 location descriptions (screenshot-reviewed)
+
+A separate Tableau Public worksheet was filtered to 2012–2016, grouped by raw `Location Description`, and sorted descending by incident count. The top 15 raw categories match the categories displayed separately in the location treemap:
+
+1. STREET: 327,771
+2. RESIDENCE: 231,509
+3. APARTMENT: 183,403
+4. SIDEWALK: 160,186
+5. OTHER: 55,316
+6. PARKING LOT/GARAGE: 41,370
+7. ALLEY: 31,542
+8. RESIDENTIAL YARD: 30,469
+9. SMALL RETAIL STORE: 28,528
+10. SCHOOL, PUBLIC: 25,851
+11. RESTAURANT: 25,562
+12. RESIDENCE-GARAGE: 25,503
+13. RESIDENCE-PORCH: 25,339
+14. VEHICLE NON-COMMERCIAL: 24,937
+15. DEPARTMENT STORE: 20,542
+
+The raw `OTHER` description is distinct from the calculated `Other Locations` grouping. The screenshot establishes the ranking and visible counts, but the grouped `Other Locations` total of 207,466 has not yet been independently reconciled against all remaining raw descriptions (including nulls).
