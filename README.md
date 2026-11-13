@@ -119,13 +119,25 @@ The interactive dashboards and worksheets are available through the links above.
 
 **The packaged Tableau workbook (`.twbx`) has not yet been uploaded to this repository.** The original workbook includes an embedded data extract. The repository is configured to track large `.twbx` files using Git LFS when the workbook is added.
 
-## Findings and Limitations
+## Preliminary Findings
 
-I am reviewing the underlying counts, category groupings, and date filters before publishing final analytical findings. The visualizations provide descriptive comparisons, but they do not establish the causes of changes in reported crime.
+The figures below are taken from the published Tableau worksheets. They describe what is displayed in the visualizations and are pending a separate reconciliation with the underlying extract and validation of the exact date coverage.
 
-Reported incidents do not capture every crime committed. Differences across locations and districts may reflect population, activity levels, reporting practices, and other factors. The geographic map excludes records without usable coordinates. Arrest status reflects the recorded field in the dataset and does not indicate a conviction.
+**Theft incidents declined between 2012 and 2016.** The crime-category heatmap shows 75,450 reported theft incidents in 2012 and 61,163 in 2016, a decrease of 14,287 incidents (18.9%). Theft was the highest-count category shown in both years. [View the category heatmap](images/worksheets/01-crime-categories.png).
 
-See the [analysis review checklist](docs/ANALYSIS_NOTES.md) for the remaining validation steps.
+**Recorded narcotics incidents fell more sharply.** The same heatmap shows 35,486 narcotics incidents in 2012 and 12,413 in 2016, a decrease of 23,073 (65.0%). These counts do not establish why the recorded total changed. [View the category heatmap](images/worksheets/01-crime-categories.png).
+
+**District 11 had the highest displayed total.** The district chart lists 102,096 reported incidents for District 11, compared with 95,575 for District 8 and 86,169 for District 6 across the selected period. These are total incident counts, not population-adjusted crime rates. [View district comparisons](images/worksheets/04-police-districts.png).
+
+**An arrest was recorded for 25.99% of displayed incidents.** The arrest-status worksheet shows 375,564 incidents with an arrest recorded and 1,069,730 without one, or 25.99% and 74.01%, respectively. Recorded arrest status does not indicate a conviction. [View arrest outcomes](images/worksheets/08-arrest-outcomes.png).
+
+## Limitations and Remaining Checks
+
+The dataset contains reported incidents, which do not represent every crime committed. Differences among districts and locations may reflect population, activity, enforcement, or reporting practices. The geographic density map omits incidents without usable coordinates. Visual patterns alone do not establish causation.
+
+Before treating these preliminary observations as fully validated findings, I plan to check source date coverage, missing dates, year filters, location-type grouping logic, and the arrest-status denominator against the embedded Tableau extract.
+
+See the [analysis review checklist](docs/ANALYSIS_NOTES.md) for those remaining checks.
 
 ## Project Files
 
