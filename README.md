@@ -6,7 +6,7 @@
 
 I used Tableau to explore reported crime incidents in Chicago from 2012 through 2016. I compared incident counts by crime category, month, location type, police district, and arrest status. I organized the results into three dashboards and kept eight individual worksheets so each chart can also be viewed in detail.
 
-The dashboard images are available below. Select a Tableau Public link to explore the interactive version.
+The dashboard images are available below and you can select a Tableau Public link to explore the interactive version.
 
 ## Dashboards
 
@@ -26,7 +26,7 @@ This dashboard combines a geographic density map with police district totals and
 
 [Explore Locations and Police Districts on Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/02GeographicPatterns)
 
-**Viewing note:** Smaller location-type labels are crowded in the dashboard treemap, and the district chart may scroll. Use the dedicated location-type and police-district worksheets below to see the larger views. The map excludes records without usable coordinates.
+**Viewing note:** Smaller location type labels are crowded in the treemap, and the district chart may scroll. Use the dedicated location type and police-district worksheets below to see the larger views. The map excludes records without usable coordinates.
 
 ### 3. District-Level Patterns
 
@@ -117,7 +117,7 @@ The workbook's source connection was originally named for a 2012–2017 dataset.
 
 The interactive dashboards and worksheets are available through the links above. To open the complete project in Tableau, download the [packaged Tableau workbook (`Chicago_Crime_Analytics_Final.twbx`)](Chicago_Crime_Analytics_Final.twbx). It contains the final project worksheets and dashboards, along with the embedded data extract.
 
-The workbook is stored using Git LFS (approximately 62.2 MiB). If GitHub displays a file preview rather than opening it, use the download option and open the `.twbx` in Tableau.
+The full workbook is stored using Git LFS.
 
 ## Findings
 
