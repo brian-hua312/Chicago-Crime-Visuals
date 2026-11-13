@@ -111,7 +111,7 @@ Share of incidents with an arrest recorded versus no arrest recorded.
 - **Primary measure:** Counts of reported crime incidents
 - **Tools:** Tableau, Tableau Public
 
-The workbook's source connection was originally named for a 2012–2017 dataset. The updated views are filtered to 2012–2016. Exact date coverage and missing-date records still need to be checked before making final yearly comparisons.
+The workbook's source connection was originally named for a 2012–2017 dataset. The updated views are filtered to 2012–2016. In a separate Tableau Public validation worksheet, I confirmed that the source dates run from January 1, 2012, to January 18, 2017. The data therefore include only part of 2017. The latest date in 2016 is December 31, 2016, and 63 records have missing dates. These checks support the selected 2012–2016 window, although they do not prove that every incident was reported.
 
 ## Tableau Workbook
 
@@ -119,25 +119,31 @@ The interactive dashboards and worksheets are available through the links above.
 
 **The packaged Tableau workbook (`.twbx`) has not yet been uploaded to this repository.** The original workbook includes an embedded data extract. The repository is configured to track large `.twbx` files using Git LFS when the workbook is added.
 
-## Preliminary Findings
+## Findings
 
-The figures below are taken from the published Tableau worksheets. They describe what is displayed in the visualizations and are pending a separate reconciliation with the underlying extract and validation of the exact date coverage.
+I reproduced the figures below in separate Tableau Public validation worksheets using the same 2012–2016 year filter as the published views. These are findings from the workbook's embedded data, not an external reconciliation against the City of Chicago's live dataset.
 
-**Theft incidents declined between 2012 and 2016.** The crime-category heatmap shows 75,450 reported theft incidents in 2012 and 61,163 in 2016, a decrease of 14,287 incidents (18.9%). Theft was the highest-count category shown in both years. [View the category heatmap](images/worksheets/01-crime-categories.png).
+**Reported theft incidents decreased 18.9% from 2012 to 2016.** Theft fell from 75,450 to 61,163 incidents, a decrease of 14,287. Theft was the largest reported crime category in both years. [Crime categories by year](images/worksheets/01-crime-categories.png)
 
-**Recorded narcotics incidents fell more sharply.** The same heatmap shows 35,486 narcotics incidents in 2012 and 12,413 in 2016, a decrease of 23,073 (65.0%). These counts do not establish why the recorded total changed. [View the category heatmap](images/worksheets/01-crime-categories.png).
+**Recorded narcotics incidents decreased 65.0%.** Narcotics fell from 35,486 in 2012 to 12,413 in 2016, a decrease of 23,073. The change is substantial, but the data do not establish how much it reflects crime patterns versus enforcement or reporting practices. [Crime categories by year](images/worksheets/01-crime-categories.png)
 
-**District 11 had the highest displayed total.** The district chart lists 102,096 reported incidents for District 11, compared with 95,575 for District 8 and 86,169 for District 6 across the selected period. These are total incident counts, not population-adjusted crime rates. [View district comparisons](images/worksheets/04-police-districts.png).
+**District 11 had the most reported incidents among the 22 districts compared.** District 11 had 102,096 incidents, followed by District 8 with 95,575 and District 6 with 86,169. I also checked district codes outside the 22-district comparison: 26 records used code 31, one used code 13, and one had no district value. Those 28 records are excluded from the district comparison, not from the underlying dataset. The totals are not adjusted for population. [Police district comparison](images/worksheets/04-police-districts.png)
 
-**An arrest was recorded for 25.99% of displayed incidents.** The arrest-status worksheet shows 375,564 incidents with an arrest recorded and 1,069,730 without one, or 25.99% and 74.01%, respectively. Recorded arrest status does not indicate a conviction. [View arrest outcomes](images/worksheets/08-arrest-outcomes.png).
+**An arrest was recorded for 25.99% of incidents.** The arrest-status analysis includes 375,564 incidents with an arrest recorded and 1,069,730 without one, out of 1,445,294 incidents in total. These counts were reproduced in a separate worksheet. An arrest record is not the same as a conviction. [Arrest outcomes](images/worksheets/08-arrest-outcomes.png)
 
-## Limitations and Remaining Checks
+**Street was the most frequent reported location description.** There were 327,771 incidents marked STREET, followed by 231,509 marked RESIDENCE. I checked the top 15 raw location descriptions against their ranking and reproduced the calculated **Other Locations** grouping of 207,466 incidents. The raw `OTHER` description is a separate category from `Other Locations`. [Location types](images/worksheets/03-location-types.png)
 
-The dataset contains reported incidents, which do not represent every crime committed. Differences among districts and locations may reflect population, activity, enforcement, or reporting practices. The geographic density map omits incidents without usable coordinates. Visual patterns alone do not establish causation.
+## Data Validation and Limitations
 
-Before treating these preliminary observations as fully validated findings, I plan to check source date coverage, missing dates, year filters, location-type grouping logic, and the arrest-status denominator against the embedded Tableau extract.
+I validated the main counts and calculations in separate Tableau Public worksheets:
 
-See the [analysis review checklist](docs/ANALYSIS_NOTES.md) for those remaining checks.
+- **Dates:** The extract spans January 1, 2012, through January 18, 2017. I filtered the analysis to 2012–2016 to avoid the partial 2017 period. The last incident date in 2016 is December 31, and 63 records have missing dates. Date-boundary checks do not establish complete incident reporting throughout every year.
+- **Monthly trend:** The 2012–2016 total is 1,445,294 incidents across 60 months, giving a validated mean of **24,088.23 incidents per month**. The previously exported monthly worksheet image shows a reference line labeled approximately 24,200. That reference line still needs to be reviewed and corrected in the published view if it is intended to represent the same 60-month mean.
+- **Geographic coverage:** 25,756 incidents (approximately **1.78%** of the 2012–2016 total) have missing longitude values and are excluded from the geographic map. A broader test for missing or out-of-range coordinates found no additional records. The remaining coordinates have not been independently geocoded.
+- **Location and district scope:** The top 15 location grouping is a fixed list that was checked against the current extract's ranking. The district comparison covers 22 selected operational districts rather than every historic or administrative code in the source.
+- **Interpretation:** The source contains *reported* incidents. Differences across districts can reflect population, activity levels, reporting practices, and enforcement. Counts and visual patterns cannot establish individual risk or the causes of change.
+
+The full calculations, filter checks, and remaining caveats are documented in the [verification audit](docs/VERIFICATION_AUDIT.md).
 
 ## Project Files
 
