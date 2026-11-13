@@ -158,3 +158,14 @@ The extract therefore contains dates in January 2017 and does not cover all of 2
 - **63** incident records have a null `Date` in the unfiltered dataset, using `SUM(IF ISNULL([Date]) THEN 1 ELSE 0 END)` in a Tableau Public validation sheet.
 - The earliest date in the unfiltered extract is January 1, 2012, and the latest is January 18, 2017, as recorded above. This confirms that 2017 is incomplete and the dataset has records through the final calendar day of 2016, but it does **not** independently prove exhaustive reporting or equal completeness for all months of 2012–2016.
 - The 63 null-date records are omitted from year-specific views filtered to 2012–2016; they should remain in the original extract and be documented as a limitation.
+
+## Tableau Public validation: geographic coordinates (user-confirmed)
+
+Using a separate validation worksheet with Year(Date) filtered to 2012–2016, the user confirmed:
+
+| Validation measure | Count |
+| --- | ---: |
+| Missing longitude (`ISNULL([Longitude])`) | **25,756** |
+| Missing latitude, missing longitude, or coordinates outside valid latitude/longitude ranges | **25,756** |
+
+The matching counts indicate that the broader invalid-coordinate test did **not** find additional records beyond the 25,756 missing-longitude records in the selected period. This test does not establish that every remaining coordinate is correctly geocoded or inside Chicago. The published map explicitly excludes null longitude values. Relative to the user-confirmed 2012–2016 total of 1,445,294, this exclusion represents approximately **1.78%** of incidents. The remaining **1,419,538** records are not excluded by the null-longitude condition, but this figure alone does not establish the number of marks represented in the heatmap.
