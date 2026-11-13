@@ -151,3 +151,10 @@ The separate `Validation - Date Coverage` worksheet, with no worksheet date filt
 - Maximum `Date`: **2017-01-18 23:49:00**
 
 The extract therefore contains dates in January 2017 and does not cover all of 2017. The 2012–2016 analysis window avoids comparing those five years with the partial 2017 period. The maximum date within 2016 and the count of null `Date` values remain to be checked. The observed date boundaries alone do not prove complete reporting throughout 2012–2016.
+
+### Follow-up date coverage checks (user-confirmed)
+
+- The maximum incident `Date` **within 2016** is **December 31, 2016** (the exact time was not supplied).
+- **63** incident records have a null `Date` in the unfiltered dataset, using `SUM(IF ISNULL([Date]) THEN 1 ELSE 0 END)` in a Tableau Public validation sheet.
+- The earliest date in the unfiltered extract is January 1, 2012, and the latest is January 18, 2017, as recorded above. This confirms that 2017 is incomplete and the dataset has records through the final calendar day of 2016, but it does **not** independently prove exhaustive reporting or equal completeness for all months of 2012–2016.
+- The 63 null-date records are omitted from year-specific views filtered to 2012–2016; they should remain in the original extract and be documented as a limitation.
