@@ -100,3 +100,7 @@ A separate Tableau Public worksheet was filtered to 2012–2016, grouped by raw 
 15. DEPARTMENT STORE: 20,542
 
 The raw `OTHER` description is distinct from the calculated `Other Locations` grouping. The screenshot establishes the ranking and visible counts, but the grouped `Other Locations` total of 207,466 has not yet been independently reconciled against all remaining raw descriptions (including nulls).
+
+### Other Locations grouping reconciliation (user-confirmed)
+
+In Tableau Public, with Year(Date) filtered to 2012–2016, the user replaced the raw Location Description field with the existing `Location Type — Top 15 + Other` calculated field and confirmed that **Other Locations = 207,466** incidents. This matches the published treemap. The earlier screenshot also confirmed that the 15 individually displayed raw location types occupy the top 15 ranks. This is a within-Tableau reconciliation, not an external query of the embedded extract.
