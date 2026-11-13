@@ -42,11 +42,27 @@ The eight worksheets examine:
 
 Some views have district-specific filters and should not be interpreted as citywide totals. The arrest field indicates a recorded arrest status, not a conviction.
 
+
+## Explore individual worksheets
+
+Each worksheet is available interactively on Tableau Public. Static PNGs will be added after the image files are uploaded to this repository.
+
+| Worksheet | Interactive view |
+| --- | --- |
+| 01. Reported crime categories by year | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/ChicagoReportedCrimeIncidentsbyCategory20122016) |
+| 02. Monthly reported incident trend | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/MonthlyReportedCrimeIncidentsinChicago20122016) |
+| 03. Reported incident location types | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/ChicagoCrimebyLocationTop15Other20122016) |
+| 04. Reported incidents by police district | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/ReportedCrimeIncidentsbyPoliceDistrict20122016) |
+| 05. Geographic density of reported incidents | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/ChicagoCrimeIncidentLocations20122016) |
+| 06. District 11 crime distribution | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/CrimeDistributioninChicagoPoliceDistrict1120122016) |
+| 07. Weekly reported incidents in Districts 8 and 11 | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/WeeklyReportedCrimeTrendsDistricts8and1120122016) |
+| 08. Arrest status of reported incidents | [Open in Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/ArrestOutcomesforReportedChicagoCrimeIncidents20122016) |
+
 ## Open the Tableau project
 
 **The packaged workbook is not yet uploaded to this repository.** Once `Chicago_Crime_Analytics.twbx` is added using Git LFS, download it and open it in a compatible version of Tableau Desktop or Tableau Reader. Start with the three dashboards, then use the individual worksheet tabs for larger views.
 
-[Explore Dashboard 02: Geographic Patterns on Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/02GeographicPatterns). The remaining dashboard links and screenshots will be added after review.
+[Explore Dashboard 02: Geographic Patterns on Tableau Public](https://public.tableau.com/app/profile/brian.hua1739/viz/Chicago_Crime_Analytics_With_Dashboards/02GeographicPatterns). Dashboard screenshots will be added after the PNG files are uploaded.
 
 ## Findings and limitations
 
