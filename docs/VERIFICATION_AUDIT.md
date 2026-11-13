@@ -104,3 +104,15 @@ The raw `OTHER` description is distinct from the calculated `Other Locations` gr
 ### Other Locations grouping reconciliation (user-confirmed)
 
 In Tableau Public, with Year(Date) filtered to 2012–2016, the user replaced the raw Location Description field with the existing `Location Type — Top 15 + Other` calculated field and confirmed that **Other Locations = 207,466** incidents. This matches the published treemap. The earlier screenshot also confirmed that the 15 individually displayed raw location types occupy the top 15 ranks. This is a within-Tableau reconciliation, not an external query of the embedded extract.
+
+## Tableau Public validation: arrest outcomes (user-confirmed)
+
+In a separate Tableau Public validation worksheet, with Year(Date) filtered to 2012–2016, the user confirmed the same recorded arrest-status counts as the published chart:
+
+| Arrest status | Count | Share |
+| --- | ---: | ---: |
+| Arrest Recorded | 375,564 | 25.99% |
+| No Arrest Recorded | 1,069,730 | 74.01% |
+| **Total** | **1,445,294** | **100%** |
+
+This independently reproduces the published counts within Tableau Public, using the workbook's extract and calculated arrest-status field. It is not a separate query against the raw source data. The Arrest field indicates whether an arrest was recorded, not a conviction or final case disposition.
