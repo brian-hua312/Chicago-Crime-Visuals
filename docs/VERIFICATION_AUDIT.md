@@ -63,3 +63,18 @@ Using the 2012–2016 year filter in a separate Tableau Public validation worksh
 ## Reporting decision
 
 Keep README findings labeled **preliminary** until the independent extract-level reconciliations above are complete. Do not claim that the 2012–2016 source data are complete or that changes in recorded incident counts demonstrate causal effects.
+
+### Completed historical-code check (user-confirmed)
+
+With the 2012–2016 year filter and no district exclusions in the validation worksheet:
+
+| District code | Records |
+| --- | ---: |
+| District 13 | 1 |
+| District 21 | 0 (not present) |
+| District 23 | 0 (not present) |
+| District 31 | 26 |
+| Null district | 1 |
+| **Combined excluded groups** | **28** |
+
+These 28 records represent about **0.00194%** of the user-confirmed citywide total of 1,445,294. They are excluded from the comparison of 22 selected districts but should not be deleted from the dataset. Districts 24 and 25 remain included. This reconciliation assumes no other nonstandard district values exist; a complete distinct-values review would close that remaining question.
