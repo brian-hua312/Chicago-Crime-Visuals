@@ -1,127 +1,127 @@
-# Workbook Verification Audit
+# Chicago Crime Analytics: Data Validation
 
-**Audit date:** November 13, 2026  
-**Workbook inspected:** `Chicago_Crime_Analytics_Dashboard_Label_Fixes.twbx`
+I used separate worksheets in Tableau Public to check the values shown in my Chicago Crime Analytics dashboards. My goal was to make sure the published charts used consistent filters, counts, and calculations before documenting the findings.
 
-This audit inspects the Tableau workbook's XML definitions and independently recalculates percentages from values shown in the published worksheets. **It does not independently query the embedded `.hyper` extract.** The workbook ZIP integrity check passed and the embedded extract is present.
+The analysis covers reported incidents dated **2012 through 2016**. Unless noted otherwise, I used the same year filter in each validation worksheet. These checks use the data extract in my Tableau workbook, not a fresh download or a separate query of the city's source dataset.
 
-## Confirmed workbook settings
+## Incident totals and date coverage
 
-- The workbook contains eight worksheets and three dashboards.
-- Every worksheet filters Year(Date) to **2012–2016**, inclusive.
-- There are no additional Tableau data-source-level filters defined in the workbook XML.
-- The District 11 category visualization filters to **District 11**.
-- The weekly trend visualization filters to **Districts 8 and 11**.
-- The police district comparison explicitly includes 22 district values (1–12, 14–20, 22, 24, 25), rather than automatically including all possible district values.
-- The geographic map explicitly excludes null longitude values. Additional coordinate completeness and map validity checks have not been performed.
-- Arrest labels use the calculation: `IF [Arrest] THEN "Arrest Recorded" ELSE "No Arrest Recorded" END`.
-- The “Top 15 + Other” location chart uses a **hardcoded list of 15 location descriptions**. It is not a dynamically recomputed Top 15 ranking. All other location descriptions are grouped as “Other Locations.”
+I created a worksheet that counted all records with dates in the analysis period and got **1,445,294 incidents**. I also checked the earliest and latest dates in the extract without applying a year filter.
 
-## Arithmetic checks based on published Tableau counts
+| Check | Result |
+| --- | --- |
+| Incidents dated 2012–2016 | 1,445,294 |
+| Earliest date in extract | January 1, 2012, 12:00 AM |
+| Latest date in extract | January 18, 2017, 11:49 PM |
+| Latest incident date in 2016 | December 31, 2016 |
+| Records with missing dates, unfiltered extract | 63 |
 
-| Comparison | Published values | Independently calculated | Status |
-| --- | --- | --- | --- |
-| Theft, 2012 to 2016 | 75,450 to 61,163 | Decrease of 14,287 (18.94%) | Arithmetic matches |
-| Narcotics, 2012 to 2016 | 35,486 to 12,413 | Decrease of 23,073 (65.02%) | Arithmetic matches |
-| Battery, 2012 to 2016 | 59,126 to 50,239 | Decrease of 8,887 (15.03%) | Arithmetic matches |
-| Arrest recorded | 375,564 | 25.9853% of displayed total | Matches displayed 25.99% |
-| No arrest recorded | 1,069,730 | 74.0147% of displayed total | Matches displayed 74.01% |
-| Arrest outcome total | 375,564 + 1,069,730 | 1,445,294 incidents | Arithmetic matches |
+I counted missing dates with this Tableau calculation:
 
-The arithmetic check establishes internal consistency of **displayed counts**. It does not confirm that the extract's source records independently produce those values.
+```tableau
+IF ISNULL([Date]) THEN 1 ELSE 0 END
+```
 
-## Tableau Public validation: monthly trend (user-confirmed)
+I summed the flag without a date filter. The 63 records with missing dates are not part of the year-filtered results. I kept the analysis focused on 2012–2016 because the extract only includes part of January 2017. These date checks confirm the observed boundaries, but they do not prove that every incident during 2012–2016 was reported or captured.
 
-- Applied the Year(Date) filter to 2012–2016 in a separate validation sheet.
-- Reproduced a total of **1,445,294** reported incident records across the filtered period.
-- Validated an average of **24,088.2333333333** incidents across 60 monthly observations (**24,088.23** when rounded).
-- The existing published monthly chart displays a reference line labeled approximately **24,200**. Revisit and align that reference line with the independently reproduced average, if it is intended to represent the mean of the same 60 months.
-- This check validates the count/mean within Tableau Public, but does not independently verify source extract completeness, date extrema, or null-date totals.
+## Crime categories by year
 
-## Tableau Public validation: police district codes (user-confirmed)
+I built a separate table with `Primary Type` on Rows, discrete `YEAR(Date)` on Columns, and incident count as the measure. The counts below matched the published crime-category worksheet.
 
-Using the 2012–2016 year filter in a separate Tableau Public validation worksheet:
+| Category | 2012 | 2016 | Change |
+| --- | ---: | ---: | ---: |
+| Theft | 75,450 | 61,163 | -14,287 (-18.94%) |
+| Narcotics | 35,486 | 12,413 | -23,073 (-65.02%) |
+| Battery | 59,126 | 50,239 | -8,887 (-15.03%) |
 
-- The previously displayed leading district totals were confirmed by the user (District 11: 102,096; District 8: 95,575; District 6: 86,169).
-- The user found **1** incident with a null District.
-- The user found **26** incidents assigned to District 31.
-- These two groups contain **27** records in total. This is not yet an independently established total count of every record outside the selected 22 district codes.
-- Preserve these records in the dataset; document any exclusions from the operational-district comparison. Districts 24 and 25 must remain included in the selected 22.
-- Remaining check: determine whether any other district codes (including historical codes 13, 21, and 23) have incident counts within this date window. Verify that the 22 selected district counts reconcile with the district-filtered total.
+These figures describe changes in *reported* incidents. They do not explain what caused the changes.
 
-## Checks still required against the embedded extract
+## Monthly incident trend
 
-1. Independently query minimum/maximum Date, records with missing Date, and counts by Year(Date). Confirm the completeness of 2012–2016 before making full-year comparisons.
-2. Recalculate counts by Primary Type and year from incident-level records.
-3. Reconcile citywide incident count by month and confirm the monthly chart's reference line.
-4. Recalculate totals for all 22 listed districts and check for incidents with null or other district codes.
-5. Verify that the 15 fixed location descriptions truly represent the largest categories in the filtered extract. Verify the count of “Other Locations.”
-6. Recalculate arrest counts and percentages directly from the extract, including treatment of null Arrest values.
-7. Check both latitude and longitude for missing or invalid values, and document how many geographic incidents are omitted.
-8. Verify percentage-of-total partitioning for the District 11 crime-distribution chart.
+I grouped the 2012–2016 incidents by month in a separate worksheet and checked the average across the **60 months**.
 
-## Reporting decision
-
-Keep README findings labeled **preliminary** until the independent extract-level reconciliations above are complete. Do not claim that the 2012–2016 source data are complete or that changes in recorded incident counts demonstrate causal effects.
-
-### Completed historical-code check (user-confirmed)
-
-With the 2012–2016 year filter and no district exclusions in the validation worksheet:
-
-| District code | Records |
+| Measure | Result |
 | --- | ---: |
-| District 13 | 1 |
-| District 21 | 0 (not present) |
-| District 23 | 0 (not present) |
-| District 31 | 26 |
-| Null district | 1 |
-| **Combined excluded groups** | **28** |
+| Total incidents | 1,445,294 |
+| Months | 60 |
+| Average incidents per month | 24,088.23 |
 
-These 28 records represent about **0.00194%** of the user-confirmed citywide total of 1,445,294. They are excluded from the comparison of 22 selected districts but should not be deleted from the dataset. Districts 24 and 25 remain included. This reconciliation assumes no other nonstandard district values exist; a complete distinct-values review would close that remaining question.
+The existing exported monthly chart shows a reference line labeled approximately **24,200**. I retained the published visualization and am documenting the difference here. The verified 60-month mean is 24,088.23; the chart's reference line should not be interpreted as that exact mean.
 
-## Tableau Public validation: Top 15 location descriptions (screenshot-reviewed)
+## Police district counts
 
-A separate Tableau Public worksheet was filtered to 2012–2016, grouped by raw `Location Description`, and sorted descending by incident count. The top 15 raw categories match the categories displayed separately in the location treemap:
+I checked district totals using the 2012–2016 year filter.
 
-1. STREET: 327,771
-2. RESIDENCE: 231,509
-3. APARTMENT: 183,403
-4. SIDEWALK: 160,186
-5. OTHER: 55,316
-6. PARKING LOT/GARAGE: 41,370
-7. ALLEY: 31,542
-8. RESIDENTIAL YARD: 30,469
-9. SMALL RETAIL STORE: 28,528
-10. SCHOOL, PUBLIC: 25,851
-11. RESTAURANT: 25,562
-12. RESIDENCE-GARAGE: 25,503
-13. RESIDENCE-PORCH: 25,339
-14. VEHICLE NON-COMMERCIAL: 24,937
-15. DEPARTMENT STORE: 20,542
+| District | Reported incidents |
+| --- | ---: |
+| 11 | 102,096 |
+| 8 | 95,575 |
+| 6 | 86,169 |
 
-The raw `OTHER` description is distinct from the calculated `Other Locations` grouping. The screenshot establishes the ranking and visible counts, but the grouped `Other Locations` total of 207,466 has not yet been independently reconciled against all remaining raw descriptions (including nulls).
+The district comparison uses a specified set of **22 districts**: 1–12, 14–20, 22, 24, and 25. I checked the historical and missing codes separately:
 
-### Other Locations grouping reconciliation (user-confirmed)
+| District value outside the comparison | Records |
+| --- | ---: |
+| 13 | 1 |
+| 21 | 0 |
+| 23 | 0 |
+| 31 | 26 |
+| Missing district | 1 |
+| **Total** | **28** |
 
-In Tableau Public, with Year(Date) filtered to 2012–2016, the user replaced the raw Location Description field with the existing `Location Type — Top 15 + Other` calculated field and confirmed that **Other Locations = 207,466** incidents. This matches the published treemap. The earlier screenshot also confirmed that the 15 individually displayed raw location types occupy the top 15 ranks. This is a within-Tableau reconciliation, not an external query of the embedded extract.
+The 28 records listed above are excluded from the 22-district chart, but not deleted from the dataset. This check covers the listed historical and missing codes rather than a separate exhaustive reconciliation of every possible district value. District totals are counts, not population-adjusted crime rates.
 
-## Tableau Public validation: arrest outcomes (user-confirmed)
+## Reported location types
 
-In a separate Tableau Public validation worksheet, with Year(Date) filtered to 2012–2016, the user confirmed the same recorded arrest-status counts as the published chart:
+To check the location chart, I sorted the raw `Location Description` values by incident count. The 15 largest categories matched the fixed list used in the published `Top 15 + Other` view.
 
-| Arrest status | Count | Share |
+| Rank | Location description | Incidents |
+| ---: | --- | ---: |
+| 1 | STREET | 327,771 |
+| 2 | RESIDENCE | 231,509 |
+| 3 | APARTMENT | 183,403 |
+| 4 | SIDEWALK | 160,186 |
+| 5 | OTHER | 55,316 |
+| 6 | PARKING LOT/GARAGE | 41,370 |
+| 7 | ALLEY | 31,542 |
+| 8 | RESIDENTIAL YARD | 30,469 |
+| 9 | SMALL RETAIL STORE | 28,528 |
+| 10 | SCHOOL, PUBLIC | 25,851 |
+| 11 | RESTAURANT | 25,562 |
+| 12 | RESIDENCE-GARAGE | 25,503 |
+| 13 | RESIDENCE-PORCH | 25,339 |
+| 14 | VEHICLE NON-COMMERCIAL | 24,937 |
+| 15 | DEPARTMENT STORE | 20,542 |
+
+I then used the workbook's `Location Type - Top 15 + Other` calculated field in a separate worksheet. The **Other Locations** group contained **207,466 incidents**, matching the published chart.
+
+The original location description `OTHER` is not the same thing as the calculated `Other Locations` group. Also, the Top 15 list is fixed in the workbook. It will not automatically change if newer data have a different ranking.
+
+## Arrest status
+
+I reproduced the arrest counts in another Tableau worksheet with the same 2012–2016 filter.
+
+| Recorded status | Incidents | Share |
 | --- | ---: | ---: |
 | Arrest Recorded | 375,564 | 25.99% |
 | No Arrest Recorded | 1,069,730 | 74.01% |
 | **Total** | **1,445,294** | **100%** |
 
-This independently reproduces the published counts within Tableau Public, using the workbook's extract and calculated arrest-status field. It is not a separate query against the raw source data. The Arrest field indicates whether an arrest was recorded, not a conviction or final case disposition.
+The workbook labels status using:
 
-## Tableau Public validation: District 11 crime distribution (user-confirmed)
+```tableau
+IF [Arrest] THEN "Arrest Recorded"
+ELSE "No Arrest Recorded"
+END
+```
 
-In a separate Tableau Public validation worksheet, the user applied the 2012–2016 year filter, limited District to **11**, grouped by the workbook's `Crime Type - Top 10 + Other` field, and used Percent of Total across categories. The user confirmed the percentages matched the published District 11 bubble chart:
+This field describes whether an arrest was recorded. It does not indicate whether a person was convicted or how a case was resolved.
 
-| Category | Share of District 11 incidents |
+## District 11 crime distribution
+
+I filtered a validation worksheet to District 11, used the existing `Crime Type - Top 10 + Other` grouping, and calculated each category's percentage of the district total.
+
+| Crime category | Share of District 11 incidents |
 | --- | ---: |
 | Narcotics | 28.00% |
 | Battery | 18.71% |
@@ -129,54 +129,39 @@ In a separate Tableau Public validation worksheet, the user applied the 2012–2
 | Criminal Damage | 7.82% |
 | Assault | 5.91% |
 
-This is a within-Tableau reproduction using the workbook's existing grouping and filters. The category share calculation is confirmed for these five categories; the full grouping and source-level counts have not been separately reconciled through the Hyper API.
+These five percentages matched the published District 11 chart. I did not separately recalculate every remaining category in the grouping from raw incident records.
 
-## Tableau Public validation: annual category counts (user-confirmed)
+## Geographic coordinate coverage
 
-A separate Tableau Public worksheet was filtered to 2012–2016 and grouped by `Primary Type` and discrete `YEAR(Date)`. The user confirmed that the six displayed annual incident counts match the previously published heatmap:
+For the 2012–2016 records, I compared two checks: missing longitude values, and a broader test for missing or out-of-range latitude or longitude.
 
-| Crime category | 2012 | 2016 | Change |
-| --- | ---: | ---: | ---: |
-| Theft | 75,450 | 61,163 | -14,287 (-18.94%) |
-| Narcotics | 35,486 | 12,413 | -23,073 (-65.02%) |
-| Battery | 59,126 | 50,239 | -8,887 (-15.03%) |
+```tableau
+IF ISNULL([Longitude]) THEN 1 ELSE 0 END
+```
 
-This is a Tableau-extract-level consistency check using a separate worksheet. The completeness of 2012–2016, missing dates, and external raw-data reconciliation remain separate questions.
+The broader calculation was:
 
-## Tableau Public validation: extract date extrema (screenshot-reviewed)
+```tableau
+IF ISNULL([Latitude])
+   OR ISNULL([Longitude])
+   OR ABS([Latitude]) > 90
+   OR ABS([Longitude]) > 180
+THEN 1
+ELSE 0
+END
+```
 
-The separate `Validation - Date Coverage` worksheet, with no worksheet date filter, showed:
-
-- Minimum `Date`: **2012-01-01 00:00:00**
-- Maximum `Date`: **2017-01-18 23:49:00**
-
-The extract therefore contains dates in January 2017 and does not cover all of 2017. The 2012–2016 analysis window avoids comparing those five years with the partial 2017 period. The maximum date within 2016 and the count of null `Date` values remain to be checked. The observed date boundaries alone do not prove complete reporting throughout 2012–2016.
-
-### Follow-up date coverage checks (user-confirmed)
-
-- The maximum incident `Date` **within 2016** is **December 31, 2016** (the exact time was not supplied).
-- **63** incident records have a null `Date` in the unfiltered dataset, using `SUM(IF ISNULL([Date]) THEN 1 ELSE 0 END)` in a Tableau Public validation sheet.
-- The earliest date in the unfiltered extract is January 1, 2012, and the latest is January 18, 2017, as recorded above. This confirms that 2017 is incomplete and the dataset has records through the final calendar day of 2016, but it does **not** independently prove exhaustive reporting or equal completeness for all months of 2012–2016.
-- The 63 null-date records are omitted from year-specific views filtered to 2012–2016; they should remain in the original extract and be documented as a limitation.
-
-## Tableau Public validation: geographic coordinates (user-confirmed)
-
-Using a separate validation worksheet with Year(Date) filtered to 2012–2016, the user confirmed:
-
-| Validation measure | Count |
+| Coordinate check | Incidents |
 | --- | ---: |
-| Missing longitude (`ISNULL([Longitude])`) | **25,756** |
-| Missing latitude, missing longitude, or coordinates outside valid latitude/longitude ranges | **25,756** |
+| Missing longitude | 25,756 |
+| Missing or out-of-range coordinates | 25,756 |
 
-The matching counts indicate that the broader invalid-coordinate test did **not** find additional records beyond the 25,756 missing-longitude records in the selected period. This test does not establish that every remaining coordinate is correctly geocoded or inside Chicago. The published map explicitly excludes null longitude values. Relative to the user-confirmed 2012–2016 total of 1,445,294, this exclusion represents approximately **1.78%** of incidents. The remaining **1,419,538** records are not excluded by the null-longitude condition, but this figure alone does not establish the number of marks represented in the heatmap.
+Both checks returned the same total. The broader test did not identify additional records beyond those already missing longitude.
 
-## Tableau Public validation: geographic coordinate exclusions (user-confirmed)
+The geographic map excludes null longitude values. That affects **25,756 incidents, or approximately 1.78%** of the 1,445,294 incidents in the analysis. The other **1,419,538** records were not flagged by these tests. This does not guarantee that every remaining coordinate is correctly located in Chicago.
 
-In a separate Tableau Public validation worksheet with Year(Date) filtered to 2012–2016, the user confirmed:
+## Workbook setup and limitations
 
-- `SUM(IF ISNULL([Longitude]) THEN 1 ELSE 0 END)` = **25,756**.
-- The broader check for null Latitude, null Longitude, latitude outside -90 to 90, or longitude outside -180 to 180 also returned **25,756**.
+The workbook configuration review identified three dashboards, eight analytical worksheets, and year filters set to 2012–2016. The District 11 view is filtered to that district, while the weekly comparison is filtered to Districts 8 and 11. The location grouping and district selections described above are fixed in their respective worksheets.
 
-The matching totals mean that there are **no additional records flagged by the broader test beyond the 25,756 records missing longitude**. This does not independently prove those records also have missing latitude, nor does it exclude other geocoding errors within valid coordinate ranges.
-
-Relative to the user-confirmed 2012–2016 incident total of 1,445,294, these 25,756 records represent approximately **1.78%** of incident records. The remaining **1,419,538** are not flagged by these two checks, although their coordinates have not been independently geocoded or quality-assessed. The map's explicit exclusion of null Longitude is consistent with this result.
+My validation focused on reproducing the published results in Tableau Public. I did not run a separate record-level audit against the source data or independently verify the accuracy of the city's underlying incident reports. Reported incident counts can be affected by reporting practices, enforcement, and differences in activity or population across locations. I treat these charts as descriptive analysis, not evidence of causation.
