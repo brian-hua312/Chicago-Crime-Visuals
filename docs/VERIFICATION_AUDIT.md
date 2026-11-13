@@ -142,3 +142,12 @@ A separate Tableau Public worksheet was filtered to 2012–2016 and grouped by `
 | Battery | 59,126 | 50,239 | -8,887 (-15.03%) |
 
 This is a Tableau-extract-level consistency check using a separate worksheet. The completeness of 2012–2016, missing dates, and external raw-data reconciliation remain separate questions.
+
+## Tableau Public validation: extract date extrema (screenshot-reviewed)
+
+The separate `Validation - Date Coverage` worksheet, with no worksheet date filter, showed:
+
+- Minimum `Date`: **2012-01-01 00:00:00**
+- Maximum `Date`: **2017-01-18 23:49:00**
+
+The extract therefore contains dates in January 2017 and does not cover all of 2017. The 2012–2016 analysis window avoids comparing those five years with the partial 2017 period. The maximum date within 2016 and the count of null `Date` values remain to be checked. The observed date boundaries alone do not prove complete reporting throughout 2012–2016.
